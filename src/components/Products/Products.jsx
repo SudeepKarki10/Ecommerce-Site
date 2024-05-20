@@ -44,6 +44,7 @@ export default function Products() {
         </>
       ) : (
         <SingleProduct
+          id={selectedProduct.id}
           category={selectedProduct.category}
           title={selectedProduct.title}
           description={selectedProduct.description}
