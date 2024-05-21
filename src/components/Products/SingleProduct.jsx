@@ -12,6 +12,7 @@ export default function SingleProduct({
     let cart = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : [];
+
     let product = {
       id,
       category,
@@ -21,6 +22,7 @@ export default function SingleProduct({
       image,
       quantity: 1,
     };
+
     let found = cart.find((item) => item.id === product.id);
 
     if (found) {

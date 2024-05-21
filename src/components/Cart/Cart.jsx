@@ -9,17 +9,21 @@ const Cart = () => {
   useEffect(() => {
     const updateCart = () => {
       const carts = JSON.parse(localStorage.getItem("cart")) || [];
+      console.log(carts);
       setTotal(
         carts.reduce((acc, item) => acc + item.price * item.quantity, 0)
       );
     };
+
+    updateCart();
+    console.log(total);
 
     window.addEventListener("storage", updateCart);
 
     return () => {
       window.removeEventListener("storage", updateCart);
     };
-  }, []);
+  }, [carts]);
 
   const handleInc = (id) => {
     const updatedCart = carts.map((item) => {
