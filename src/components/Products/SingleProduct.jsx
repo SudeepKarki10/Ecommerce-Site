@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SingleProduct({
   id,
@@ -8,6 +9,8 @@ export default function SingleProduct({
   price,
   image,
 }) {
+  const notify = () => toast("Added to cart.");
+
   const addToCart = () => {
     let cart = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
@@ -32,6 +35,8 @@ export default function SingleProduct({
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    notify();
   };
 
   return (
@@ -102,6 +107,7 @@ export default function SingleProduct({
           />
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 }

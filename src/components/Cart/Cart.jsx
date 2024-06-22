@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -44,7 +46,7 @@ const Cart = () => {
       if (item.id === id) {
         return {
           ...item,
-          quantity: item.quantity - 1,
+          quantity: item.quantity <= 0 ? 0 : item.quantity - 1,
         };
       }
       return item;
@@ -67,8 +69,13 @@ const Cart = () => {
     );
   }
 
+  const handleCheckout = () => {
+    toast("Checkout successful.");
+  };
+
   return (
     <div className="container mx-auto mt-10">
+      <ToastContainer />
       <div className="flex shadow-md my-10">
         <div className="w-3/4 bg-white px-10 py-10">
           <div className="flex justify-between border-b pb-8">
@@ -91,7 +98,10 @@ const Cart = () => {
           </div>
           {carts?.map((cart) => {
             return (
-              <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+              <div
+                className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
+                key={cart.id}
+              >
                 <div className="flex w-2/5">
                   <div className="w-20">
                     <img className="h-24" src={cart?.image} alt={cart?.title} />
@@ -196,7 +206,10 @@ const Cart = () => {
               <span>Total cost</span>
               <span>${(total + 10).toFixed(2)}</span>
             </div>
-            <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+            <button
+              className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+              onClick={handleCheckout}
+            >
               Checkout
             </button>
           </div>
